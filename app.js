@@ -26,17 +26,22 @@ app.get('/users/:userNumber',(req, res) => {
 // Displays a json of a specific user and their schedule
 app.get('/users/:userNumber/schedules',(req, res) => {
   
-  let results = []
-  
-  for(let i=0; i<data.schedules.length; i++) {
-    if(data.schedules[i].user_id == req.params.userNumber){
-      results.push(data.schedules[i])
-    } else {
-      console.log("no match found")
-    }
-  }
+  const userNumberSchedules = data.schedules.filter(item => {
+    return item.user_id === +req.params.userNumber // this + is a unary operator, it can be used to convert a string to a number 
+  })
+  res.json(userNumberSchedules)
 
-  return res.json(results)
+  // let results = []
+  
+  // for(let i=0; i<data.schedules.length; i++) {
+  //   if(data.schedules[i].user_id == req.params.userNumber){
+  //     results.push(data.schedules[i])
+  //   } else {
+  //     console.log("no match found")
+  //   }
+  // }
+
+  // return res.json(results)
 
 })
 
