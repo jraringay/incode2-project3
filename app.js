@@ -16,6 +16,14 @@ app.get('/users',(req, res) => {
   res.json(data.users)
 })
 
+// POST: Add a new user
+app.post('/users', (req, res) => {
+  let newUser = req.body
+  console.log(newUser)
+  data.users.push(newUser)
+  res.send("New user added.")
+})
+
 // GET: Displays a json list of schedules
 app.get('/schedules',(req, res) => {
   res.json(data.schedules)
@@ -34,7 +42,7 @@ app.get('/users/:userNumber',(req, res) => {
   res.json(data.users[req.params.userNumber])
 })
 
-// Displays a json of a specific user and their schedule
+// GET: Displays a json of a specific user and their schedule
 app.get('/users/:userNumber/schedules',(req, res) => {
   
   const userNumberSchedules = data.schedules.filter(item => {
