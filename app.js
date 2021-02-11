@@ -25,11 +25,19 @@ app.get('/users/:userNumber',(req, res) => {
 
 // Displays a json of a specific user and their schedule
 app.get('/users/:userNumber/schedules',(req, res) => {
+  
+  let results = []
+  
   for(let i=0; i<data.schedules.length; i++) {
     if(data.schedules[i].user_id == req.params.userNumber){
-      return res.json(data.schedules[i])
+      results.push(data.schedules[i])
+    } else {
+      console.log("no match found")
     }
   }
+
+  return res.json(results)
+
 })
 
 
