@@ -1,24 +1,35 @@
 const express = require('express')
-const data = require('./data.js')
+let data = require('./data.js')
 const app = express()
 const PORT = 3000
+
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true})) // for parsing application/x-www-form-urlencoded
 
 // Returns welcome message on home
 app.get('/',(req, res) => {
   res.send('Welcome to our schedule website!')
 })
 
-// Displays a json list of users
+// GET: Displays a json list of users
 app.get('/users',(req, res) => {
   res.json(data.users)
 })
 
-// Displays a json list of schedules
+// GET: Displays a json list of schedules
 app.get('/schedules',(req, res) => {
   res.json(data.schedules)
 })
 
-// Displays a json of a specific user
+// POST: Add a new schedule
+app.post('/schedules', (req, res) => {
+  let newSchedule = req.body
+  console.log(newSchedule)
+  data.schedules.push(newSchedule)
+  res.send("New schedule added.")
+})
+
+// GET: Displays a json of a specific user
 app.get('/users/:userNumber',(req, res) => {
   res.json(data.users[req.params.userNumber])
 })
